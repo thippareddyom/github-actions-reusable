@@ -28,6 +28,6 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v4
         with:
-          repository: thippareddyom/roboshop-helm@main
+          repository: thippareddyom/roboshop-helm
       - name:  Deploy  
         run: helm upgrade -i ${{ inputs.component_name }} . -f env-dev/${{ inputs.component_name }}.yaml
