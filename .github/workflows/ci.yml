@@ -1,0 +1,9 @@
+name: common ci
+on:
+  [workflow_call]
+jobs:
+  Build:
+    runs-on: [self-hosted,ubuntu-latest]
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
