@@ -1,6 +1,10 @@
 name: common ci
 on:
-  [workflow_call]
+  workflow_call:
+    inputs:
+      component_name:
+        required: true
+        type: string
 jobs:
   Build:
     runs-on: [ubuntu-latest]
@@ -8,6 +12,7 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v4
       - run: echo Build
+      
   Test: 
     needs: Build
     runs-on: [ubuntu-latest]
@@ -15,10 +20,14 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v4
       - run: echo Test
-  Deploy:
+
+  Dev-Deployment:
     needs: Test
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
         uses: actions/checkout@v4
-      - run: echo deploy
+        with:
+          repository: thippareddyom/roboshop-helm
+      - name:  Deploy  
+        run: helm upgrade -i ${{ inputs.component_name }} . -f env-dev/${{ inputs.component_name }}.yaml
