@@ -32,4 +32,5 @@ jobs:
       - name:  Deploy  
         run: |
           export PATH=/home/github/.local/bin:/home/github/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+          aws eks update-kubeconfig --name dev
           helm upgrade -i ${{ inputs.component_name }} . -f env-dev/${{ inputs.component_name }}.yaml
